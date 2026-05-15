@@ -54,8 +54,13 @@ const additionalDeps = [
     "puppeteer-extra-plugin-adblocker",
 ];
 
+let puppeteerSkipLogged = false;
 for (let dep of additionalDeps) {
     if (skipPuppeteerInstall) {
+        if (!puppeteerSkipLogged) {
+            console.log("Skipping Puppeteer install (cloud/Termux environment).");
+            puppeteerSkipLogged = true;
+        }
         continue;
     }
 
