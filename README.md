@@ -33,9 +33,9 @@
 
 [🔗・Required Links](#required-links)<br>
 
-[🚂・Railway Deployment](#-railway-deployment)<br>
-
 [🎈・Installation](#installation)<br>
+
+[🚂・Railway Deployment](#-railway-deployment)<br>
 
 [🥰・Contributors](#contributors)<br>
 
@@ -382,21 +382,6 @@ Promt mode:
 
 ## 🎈・Installation
 
-## 🚂・Railway Deployment
-
-For Railway/cloud deploy (non-interactive), set these Variables:
-
-- `token` (required)
-- `channel_id` (required)
-- `userid` (optional)
-
-Optional port variables:
-
-- `PORT` (provided automatically by Railway)
-- `EXPRESS_PORT` (optional fallback override)
-
-When `token` is provided via environment variable, the bot skips first-run terminal prompts and uses env values directly.
-
 ## For Beginners:
 
 ### 💻・Windows
@@ -491,6 +476,21 @@ From WebUI, go to home and press the reboot button from the actions buttons ther
 From Discord, In config.json, type [prefix]stop (example: e!reboot) with the prefix you set in config.json to the channel whose ID you entered in channelid
 
 ```
+
+## 🚂・Railway Deployment
+
+For Railway/cloud deploy (non-interactive), set these variables:
+
+- `token` (required)
+- `channel_id` (required)
+- `userid` (optional)
+
+Optional port variables:
+
+- `PORT` (provided automatically by Railway)
+- `EXPRESS_PORT` (optional fallback override)
+
+When `token` is provided via environment variable, the bot skips first-run terminal prompts and uses env values directly.
 
 ## 📑・License
 

@@ -99,7 +99,6 @@ if (envToken.length > 0) {
         config.main.owodmchannelid = envChannelId;
         config.main.gamblechannelid = envChannelId;
         config.main.autoquestchannelid = envChannelId;
-        config.__allowDuplicateChannelIds = true;
     }
 
     if (envUserId.length > 0) {
