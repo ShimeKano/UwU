@@ -279,7 +279,16 @@ if (cluster.isMaster) {
         }
     });
 
-    server.listen(config.socket.expressport, () => {});
+    // Railway/Cloud-friendly port binding
+    const PORT =
+        parseInt(process.env.PORT, 10) ||
+        parseInt(process.env.EXPRESS_PORT, 10) ||
+        config?.socket?.expressport ||
+        2009;
+
+    server.listen(PORT, "0.0.0.0", () => {
+        console.log(`WebUI listening on 0.0.0.0:${PORT}`);
+    });
 
     let chill = cluster.fork();
 
@@ -316,43 +325,3 @@ if (cluster.isMaster) {
 } else {
     require("./bot.js");
 }
-
-/*
-wow, this project come so big that i can't remember which is which
-so i add this file structure and (will) come with some information
-obiviously, fo debug
-.
-├───assets
-├───commands
-├───data
-├───events
-│   ├───client
-│   └───message
-├───handlers
-├───node_modules
-├───phrases
-├───tests
-├───utils
-│   ├───function
-│   ├───hcaptchasolver
-│   ├───huntbot_captcha
-│   │   └───letters
-│   └───webserver.js
-├───webui
-│   ├───assets
-│   │   ├───css
-│   │   └───js
-│   │       └───ws.js
-│   ├───background
-│   │   ├───image
-│   │   └───video
-│   └───partials
-│       ├───home
-│       ├───settings
-│       └───sidebar
-├───bot.js Setup and login, call ./handlers and ./utils/mainhandler.js
-├───main.js Fork itself, the sub call bot.js
-└───config.json
-
-I was lazy to finish
-*/
