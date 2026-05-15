@@ -17,17 +17,22 @@ const cp = require("child_process");
 const isTermux =
     process.env.PREFIX && process.env.PREFIX.includes("com.termux");
 
+// Skip puppeteer runtime install on Railway/cloud or when explicitly disabled
+const skipPuppeteerInstall =
+    isTermux ||
+    process.env.RAILWAY_ENVIRONMENT !== undefined ||
+    process.env.SKIP_PUPPETEER_INSTALL === "true";
+
 const packageJson = require("./package.json");
 
 // auto install dependencies
 for (let dep of Object.keys(packageJson.dependencies)) {
     if (
-        isTermux &&
+        skipPuppeteerInstall &&
         (dep === "puppeteer" ||
             dep === "puppeteer-real-browser" ||
             dep === "puppeteer-extra-plugin-adblocker")
     ) {
-        console.log("Skipping Puppeteer in Termux environment");
         continue;
     }
 
@@ -50,8 +55,7 @@ const additionalDeps = [
 ];
 
 for (let dep of additionalDeps) {
-    if (isTermux) {
-        console.log(`Termux environment detected. Skipping ${dep}.`);
+    if (skipPuppeteerInstall) {
         continue;
     }
 

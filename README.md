@@ -479,18 +479,31 @@ From Discord, In config.json, type [prefix]stop (example: e!reboot) with the pre
 
 ## 🚂・Railway Deployment
 
-For Railway/cloud deploy (non-interactive), set these variables:
+### Steps
 
-- `token` (required)
-- `channel_id` (required)
-- `userid` (optional)
+1. Fork this repository to your GitHub account.
+2. Create a new Railway project and connect your forked repo.
+3. Set the **Start Command** to `npm start` (Railway runs `npm install` automatically as the build step).
+4. Go to **Variables** and add the variables listed below.
+5. Deploy — Railway will assign a public domain automatically. Open it in your browser to access the Web UI dashboard.
 
-Optional port variables:
+### Environment Variables
 
-- `PORT` (provided automatically by Railway)
-- `EXPRESS_PORT` (optional fallback override)
+| Variable | Required | Description |
+|---|---|---|
+| `token` | ✅ | Discord account token |
+| `channel_id` | ✅ | Channel ID used for all bot commands (hunt, gamble, autoquest, owodm) |
+| `userid` | optional | Your Discord user ID (used for self-checks) |
+| `SKIP_PUPPETEER_INSTALL` | optional | Set to `true` to skip puppeteer runtime install (auto-skipped on Railway) |
 
-When `token` is provided via environment variable, the bot skips first-run terminal prompts and uses env values directly.
+> `PORT` and `RAILWAY_ENVIRONMENT` are set automatically by Railway — do **not** add them manually.
+
+### Notes
+
+- When `token` is set via environment variable, the bot skips all interactive first-run prompts.
+- All channel IDs (`commandschannelid`, `huntbotchannelid`, `gamblechannelid`, `autoquestchannelid`, `owodmchannelid`) are set to the same `channel_id` value automatically.
+- The Web UI dashboard uses `wss://` automatically when accessed over HTTPS (Railway public domain), so WebSocket connections work without any extra configuration.
+- Puppeteer-based features (captcha solver) are skipped on Railway since Railway does not provide a Chrome environment. The bot still farms normally without the captcha solver.
 
 ## 📑・License
 
