@@ -33,6 +33,8 @@
 
 [🔗・Required Links](#required-links)<br>
 
+[🚂・Railway Deployment](#-railway-deployment)<br>
+
 [🎈・Installation](#installation)<br>
 
 [🥰・Contributors](#contributors)<br>
@@ -379,6 +381,21 @@ Promt mode:
 [Farm Bot ZIP File](https://github.com/lfathh/UwU/archive/refs/heads/main.zip)
 
 ## 🎈・Installation
+
+## 🚂・Railway Deployment
+
+For Railway/cloud deploy (non-interactive), set these Variables:
+
+- `token` (required)
+- `channel_id` (required)
+- `userid` (optional)
+
+Optional port variables:
+
+- `PORT` (provided automatically by Railway)
+- `EXPRESS_PORT` (optional fallback override)
+
+When `token` is provided via environment variable, the bot skips first-run terminal prompts and uses env values directly.
 
 ## For Beginners:
 
