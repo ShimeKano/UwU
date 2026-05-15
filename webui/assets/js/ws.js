@@ -12,7 +12,8 @@ let socket;
 let startTime = null;
 
 function connectWebSocket() {
-    socket = new WebSocket(`ws://${window.location.host}/ws`); //! buna configden nasıl port vereyim AMK
+    const wsProtocol = window.location.protocol === "https:" ? "wss:" : "ws:";
+    socket = new WebSocket(`${wsProtocol}//${window.location.host}/ws`);
 
     socket.onopen = function () {
         document.getElementById("ws-status").textContent = "Connected";
