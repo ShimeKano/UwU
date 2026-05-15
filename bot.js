@@ -85,6 +85,31 @@ try {
     config = require("./config.json");
 }
 
+const envToken = (process.env.token || process.env.TOKEN || "").trim();
+const envChannelId = (process.env.channel_id || process.env.CHANNEL_ID || "").trim();
+const envUserId = (process.env.userid || process.env.USERID || "").trim();
+
+if (envToken.length > 0) {
+    config.firstrun = false;
+    config.main.token = envToken;
+
+    if (envChannelId.length > 0) {
+        config.main.commandschannelid = envChannelId;
+        config.main.huntbotchannelid = envChannelId;
+        config.main.owodmchannelid = envChannelId;
+        config.main.gamblechannelid = envChannelId;
+        config.main.autoquestchannelid = envChannelId;
+    }
+
+    if (envUserId.length > 0) {
+        config.main.userid = envUserId;
+    }
+
+    console.log(
+        "[Config] Using environment variables for main account setup; skipping interactive first-run prompts.",
+    );
+}
+
 const isTermux =
     process.env.PREFIX && process.env.PREFIX.includes("com.termux");
 const packageJson = require("./package.json");

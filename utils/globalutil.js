@@ -63,24 +63,36 @@ exports.verifyconfig = async (client, extrac, config) => {
         config.extra.gamblechannelid,
         config.extra.autoquestchannelid,
     ];
+    const envChannelId = (
+        process.env.channel_id ||
+        process.env.CHANNEL_ID ||
+        ""
+    ).trim();
+    const allowDuplicateChannelIds = envChannelId.length > 0;
 
     for (let i = 0; i < vars.length; i++) {
         let c = false;
         for (let j = i + 1; j < vars.length; j++) {
             if (vars[i] == vars[j] && vars[i].length > 0) {
                 c = true;
-                normal = false;
-                showerrcoziamlazy(`There are some duplicate channel id!`);
-                console.log(
-                    "Please use four different channel for one tokentype for best efficiency!",
-                );
-                console.log(
-                    "That mean if you use both main and extra, and farm, huntbot, quest and gamble, you need eight channel!",
-                );
-                break;
+                if (
+                    !allowDuplicateChannelIds ||
+                    vars[i] !== envChannelId ||
+                    vars[j] !== envChannelId
+                ) {
+                    normal = false;
+                    showerrcoziamlazy(`There are some duplicate channel id!`);
+                    console.log(
+                        "Please use four different channel for one tokentype for best efficiency!",
+                    );
+                    console.log(
+                        "That mean if you use both main and extra, and farm, huntbot, quest and gamble, you need eight channel!",
+                    );
+                    break;
+                }
             }
         }
-        if (c) break;
+        if (c && !allowDuplicateChannelIds) break;
     }
 
     if (config.main.commands.pray && config.main.commands.curse) {
